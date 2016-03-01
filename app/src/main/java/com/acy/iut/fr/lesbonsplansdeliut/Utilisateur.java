@@ -78,8 +78,7 @@ public class Utilisateur {
         this.login = login;
     }
 
-    public Utilisateur(int id, int id_departement, String nom, String prenom, String mail, String tel, String motdepasse, String login) {
-        this.id = id;
+    public Utilisateur(int id_departement, String nom, String prenom, String mail, String tel, String motdepasse, String login) {
         this.id_departement = id_departement;
         this.nom = nom;
         this.prenom = prenom;
