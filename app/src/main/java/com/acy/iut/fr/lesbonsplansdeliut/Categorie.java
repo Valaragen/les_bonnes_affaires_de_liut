@@ -7,8 +7,8 @@ public class Categorie {
     private int id;
     private String nom;
 
-    public Categorie(int id_categorie, String nom) {
-        this.id = id_categorie;
+    public Categorie(int id, String nom) {
+        this.id = id;
         this.nom = nom;
     }
 

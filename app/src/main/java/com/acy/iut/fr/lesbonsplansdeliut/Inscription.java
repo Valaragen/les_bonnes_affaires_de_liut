@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.acy.iut.fr.lesbonsplansdeliut.R;
 
@@ -26,6 +27,7 @@ import java.nio.charset.StandardCharsets;
 public class Inscription extends Activity {
     //Declare fields
     private EditText nom,prenom, password,mail,tel,dep,login;
+    private TextView testText;
 
 
     @Override
@@ -41,6 +43,7 @@ public class Inscription extends Activity {
         dep = (EditText)findViewById(R.id.dep_user);
         password = (EditText)findViewById(R.id.mdp_user);
         login = (EditText)findViewById(R.id.login_user);
+        testText = (TextView)findViewById(R.id.testText);
 
     }
 
@@ -55,7 +58,7 @@ public class Inscription extends Activity {
         if(v.getId() != R.id.btnInscription) {
             return;
         }
-        new AttemptLogin().execute();
+        new AddUser().execute();
     }//convert an inputstream to a string
     public String convertStreamToString(java.io.InputStream is) {
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
@@ -63,18 +66,19 @@ public class Inscription extends Activity {
     }
 
     //async call to the php script
-    class AttemptLogin extends AsyncTask<Credential, String, JSONObject> {
+    class AddUser extends AsyncTask<Utilisateur, String, JSONObject> {
         private Utilisateur u = new Utilisateur(Integer.parseInt(dep.getText().toString()),nom.getText().toString(),prenom.getText().toString(),mail.getText().toString(),tel.getText().toString(),password.getText().toString(),login.getText().toString());
 
 
         //display loading and status
         protected void onPreExecute() {
+            testText.setText("Connecting...");
         }
 
         //Get JSON data from the URL
         @TargetApi(Build.VERSION_CODES.KITKAT)
         @Override
-        protected JSONObject doInBackground(Credential... args) {
+        protected JSONObject doInBackground(Utilisateur... args) {
             JSONObject json = null;
             try {
                 Log.d("request!", "starting");
@@ -85,7 +89,7 @@ public class Inscription extends Activity {
                     url = new URL(Main.LOGIN_URL);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
-                    String urlParameters = "nom=" + u.getNom() + "&&prenom=" + u.getPrenom() + "&&departement=" + u.getId_departement()+ "&&mail=" + u.getMail()+ "&&telephone=" + u.getTel()+ "&&password=" + u.getMotdepasse()+ "&&login=" + u.getLogin()+ "&&method=" + "insertUser";
+                    String urlParameters = "nom=" + u.getNom() + "&&prenom=" + u.getPrenom() /*+ "&&departement=" + u.getId_departement()+ "&&mail=" + u.getMail()+ "&&telephone=" + u.getTel()+ "&&password=" + u.getMotdepasse()+ "&&login=" + u.getLogin()*/+ "&&method=" + "insertUser";
                     byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
                     //write post data to URL
                     DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
@@ -109,6 +113,7 @@ public class Inscription extends Activity {
             int success = 0;
             try {
                 //alert the user of the status of the connection
+                testText.setText(result.getString(Main.FLAG_MESSAGE));
                 success = result.getInt(Main.FLAG_SUCCESS);
             } catch (JSONException e) {
                 e.printStackTrace();
