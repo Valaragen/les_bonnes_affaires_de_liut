@@ -28,9 +28,9 @@ import java.nio.charset.StandardCharsets;
 public class Main extends Activity {
 
     //static fields for ease of access
-    private static final String FLAG_SUCCESS = "success";
-    private static final String FLAG_MESSAGE = "message";
-    private static final String LOGIN_URL = "http://rudyboinnard.esy.es/android/";
+    public static final String FLAG_SUCCESS = "success";
+    public static final String FLAG_MESSAGE = "message";
+    public static final String LOGIN_URL = "http://rudyboinnard.esy.es/android/";
 
     //graphic interface fields
     private EditText username, password;
@@ -63,6 +63,7 @@ public class Main extends Activity {
         }
         new AttemptLogin().execute();
     }
+    // method when click on MainPage
     public void InscriptionClick(View v){
 
                 Intent intent = new Intent(Main.this, Inscription.class);
