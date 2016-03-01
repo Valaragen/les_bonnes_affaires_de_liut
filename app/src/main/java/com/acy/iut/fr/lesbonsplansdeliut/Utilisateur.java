@@ -16,6 +16,7 @@ public class Utilisateur {
     public int getId() {
         return id;
     }
+    /*GET/SET*/
 
     public void setId(int id) {
         this.id = id;
