@@ -100,7 +100,7 @@ public class Main extends Activity {
                     url = new URL(LOGIN_URL);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
-                    String urlParameters = "username=" + c.getUsername() + "&&password=" + c.getPassword();
+                    String urlParameters = "username=" + c.getUsername() + "&&password=" + c.getPassword()+"&&method="+"LogUser";
                     byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
                     //write post data to URL
                     DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
