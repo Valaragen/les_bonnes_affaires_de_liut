@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:padding="15dp">
+
+    <TextView
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Nom"
+        android:id="@+id/ffff"
+        android:layout_weight="0.02" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nom_user"
+        android:layout_weight="0.02" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Prénom"
+        android:id="@+id/textView4"
+        android:layout_weight="0.02" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/prenom_user"
+        android:layout_weight="0.02" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Mail"
+        android:id="@+id/textView5"
+        android:layout_weight="0.02" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mail_user"
+        android:layout_weight="0.02" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Telephone"
+        android:id="@+id/textView6"
+        android:layout_weight="0.02" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tel_user"
+        android:layout_weight="0.02" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Login"
+        android:id="@+id/textView7"
+        android:layout_weight="0.02" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_user"
+        android:layout_weight="0.02" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Mot de passe"
+        android:id="@+id/textView8"
+        android:layout_weight="0.02" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mdp_user"
+        android:layout_weight="0.02" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inscription"
+        android:id="@+id/btnInscription"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.02"
+        android:layout_marginTop="20dp" />
+</LinearLayout>

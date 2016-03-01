@@ -2,6 +2,7 @@ package com.acy.iut.fr.lesbonsplansdeliut;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -61,6 +62,11 @@ public class Main extends Activity {
             return;
         }
         new AttemptLogin().execute();
+    }
+    public void InscriptionClick(View v){
+
+                Intent intent = new Intent(Main.this, Inscription.class);
+                startActivity(intent);
     }
 
     //convert an inputstream to a string
