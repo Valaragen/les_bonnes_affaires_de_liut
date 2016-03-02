@@ -2,6 +2,7 @@ package com.acy.iut.fr.lesbonsplansdeliut;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.acy.iut.fr.lesbonsplansdeliut.R;
 
@@ -25,6 +27,12 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class Inscription extends Activity {
+
+    //static fields for ease of access
+    private static final String FLAG_SUCCESS = "success";
+    private static final String FLAG_MESSAGE = "message";
+    private static final String LOGIN_URL = "http://rudyboinnard.esy.es/android/";
+
     //Declare fields
     private EditText nom,prenom, password,mail,tel,dep,login;
     private TextView testText;
@@ -58,8 +66,16 @@ public class Inscription extends Activity {
         if(v.getId() != R.id.btnInscription) {
             return;
         }
-        new AddUser().execute();
-    }//convert an inputstream to a string
+        Log.d("DEBUG", "Click on inscription");
+        if (dep.getText().toString().matches("") || nom.getText().toString().matches("") || prenom.getText().toString().matches("")|| mail.getText().toString().matches("") || tel.getText().toString().matches("")||  password.getText().toString().matches("") ||  login.getText().toString().matches("")) {
+            Toast.makeText(this, "Remplir tous les champs pour continuer", Toast.LENGTH_SHORT).show();
+        }else {
+            new AddUser().execute();
+        }
+
+    }
+
+    //convert an inputstream to a string
     public String convertStreamToString(java.io.InputStream is) {
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
@@ -67,12 +83,13 @@ public class Inscription extends Activity {
 
     //async call to the php script
     class AddUser extends AsyncTask<Utilisateur, String, JSONObject> {
-        private Utilisateur u = new Utilisateur(Integer.parseInt(dep.getText().toString()),nom.getText().toString(),prenom.getText().toString(),mail.getText().toString(),tel.getText().toString(),password.getText().toString(),login.getText().toString());
 
+        private Utilisateur u = new Utilisateur(Integer.parseInt(dep.getText().toString()),nom.getText().toString(),prenom.getText().toString(),mail.getText().toString(),tel.getText().toString(),password.getText().toString(),login.getText().toString());
 
         //display loading and status
         protected void onPreExecute() {
-            testText.setText("Connecting...");
+            //testText.setText("Connecting...");
+            Log.d("------DEBUG---",""+Integer.parseInt(dep.getText().toString()));
         }
 
         //Get JSON data from the URL
@@ -86,10 +103,10 @@ public class Inscription extends Activity {
                 HttpURLConnection connection = null;
                 try {
                     //initialize connection
-                    url = new URL(Main.LOGIN_URL);
+                    url = new URL(LOGIN_URL);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
-                    String urlParameters = "nom=" + u.getNom() + "&&prenom=" + u.getPrenom() /*+ "&&departement=" + u.getId_departement()+ "&&mail=" + u.getMail()+ "&&telephone=" + u.getTel()+ "&&password=" + u.getMotdepasse()+ "&&login=" + u.getLogin()*/+ "&&method=" + "insertUser";
+                    String urlParameters = "nom=" + u.getNom() + "&&prenom=" + u.getPrenom() + "&&departement=" + u.getId_departement()+ "&&mail=" + u.getMail()+ "&&telephone=" + u.getTel()+ "&&password=" + u.getMotdepasse()+ "&&login=" + u.getLogin()+ "&&method=" + "insertUser";
                     byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
                     //write post data to URL
                     DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
@@ -111,12 +128,16 @@ public class Inscription extends Activity {
         //parse returned data
         protected void onPostExecute(JSONObject result) {
             int success = 0;
+
             try {
                 //alert the user of the status of the connection
-                testText.setText(result.getString(Main.FLAG_MESSAGE));
-                success = result.getInt(Main.FLAG_SUCCESS);
+                success = result.getInt(FLAG_SUCCESS);
+                Toast.makeText(Inscription.this, (String)result.getString(FLAG_MESSAGE),
+                        Toast.LENGTH_LONG).show();
+                //testText.setText(result.getString(FLAG_MESSAGE)+"");
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+                //e.printStackTrace();
             }
             //log the success status
             if (success == 1) {
@@ -142,7 +163,5 @@ public class Inscription extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    //Click button
 
 }

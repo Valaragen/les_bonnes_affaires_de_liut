@@ -84,6 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/dep_user"
+        android:inputType="number"
         android:layout_weight="0.02" />
 
     <TextView
