@@ -48,8 +48,8 @@ public class Main extends Activity {
         status = (TextView)findViewById(R.id.status);
         progress = (ProgressBar)findViewById(R.id.progressBar);
         progress.setVisibility(View.INVISIBLE);
-      //  ImageView imageView = (ImageView) findViewById(R.id.logo);
-        //imageView.setImageResource(R.drawable.image1);
+        ImageView imageView = (ImageView) findViewById(R.id.logo);
+        imageView.setImageResource(R.drawable.logo);
     }
 
     @Override

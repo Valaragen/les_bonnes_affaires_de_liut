@@ -8,10 +8,11 @@
     android:weightSum="1">
 
     <ImageView
-        android:layout_width="313dp"
-        android:layout_height="92dp"
+        android:layout_width="160dp"
+        android:layout_height="165dp"
         android:id="@+id/logo"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -50,7 +51,7 @@
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="353dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
@@ -69,15 +70,18 @@
         android:layout_gravity="center_horizontal" />
 
     <ProgressBar
-        style="?android:attr/progressBarStyleNormal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
         android:id="@+id/progressBar"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:indeterminate="false"
-        android:layout_margin="10dp" />
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
