@@ -13,8 +13,7 @@ public class Objet {
     private List<String> url_photo1 = new ArrayList<>();
     private int prix;
 
-    public Objet(int id, String nom, int description, List<String> url_photo1, int prix) {
-        this.id = id;
+    public Objet( String nom, int description, List<String> url_photo1, int prix) {
         this.nom = nom;
         this.description = description;
         this.url_photo1 = url_photo1;

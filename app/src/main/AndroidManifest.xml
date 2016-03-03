@@ -22,6 +22,10 @@
             android:name=".Inscription"
             android:label="@string/title_activity_inscription" >
         </activity>
+        <activity
+            android:name=".AddObject"
+            android:label="@string/title_activity_add_object" >
+        </activity>
     </application>
 
 </manifest>

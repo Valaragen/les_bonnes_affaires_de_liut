@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -47,6 +48,8 @@ public class Main extends Activity {
         status = (TextView)findViewById(R.id.status);
         progress = (ProgressBar)findViewById(R.id.progressBar);
         progress.setVisibility(View.INVISIBLE);
+      //  ImageView imageView = (ImageView) findViewById(R.id.logo);
+        //imageView.setImageResource(R.drawable.image1);
     }
 
     @Override
@@ -125,7 +128,7 @@ public class Main extends Activity {
             try {
                 //alert the user of the status of the connection
                 success = result.getInt(FLAG_SUCCESS);
-                status.setText(result.getString(FLAG_MESSAGE));
+                status.setText(result.getString("nom"));
                 progress.setVisibility(View.GONE);
             } catch (JSONException e) {
                 e.printStackTrace();
