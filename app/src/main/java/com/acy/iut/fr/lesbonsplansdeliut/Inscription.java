@@ -19,12 +19,14 @@ import android.widget.Toast;
 
 import com.acy.iut.fr.lesbonsplansdeliut.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -52,6 +54,7 @@ public class Inscription extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new LoadPage().execute();
         setContentView(R.layout.form_inscription);
 
         //initialize all fields
@@ -64,8 +67,8 @@ public class Inscription extends Activity {
         login = (EditText)findViewById(R.id.login_user);
         testText = (TextView)findViewById(R.id.testText);
         listDepartement = (Spinner)findViewById(R.id.list_dept);
-
         fillSpinner(listDepartement, departements);
+
 
     }
 
@@ -147,6 +150,82 @@ public class Inscription extends Activity {
                 //alert the user of the status of the connection
                 success = result.getInt(FLAG_SUCCESS);
                 Toast.makeText(Inscription.this, (String)result.getString(FLAG_MESSAGE),
+                        Toast.LENGTH_LONG).show();
+                //testText.setText(result.getString(FLAG_MESSAGE)+"");
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+                //e.printStackTrace();
+            }
+            //log the success status
+            if (success == 1) {
+                Log.d("OK", "OK");
+            } else {
+                Log.d("Error", "Error");
+            }
+        }
+    }
+
+    //async call to the php script
+    class LoadPage extends AsyncTask<String, String, JSONObject> {
+
+
+        public  ArrayList<Departement>listDept = new ArrayList<Departement>();
+
+        //display loading and status
+        protected void onPreExecute() {
+        }
+
+        //Get JSON data from the URL
+        @TargetApi(Build.VERSION_CODES.KITKAT)
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            JSONObject json = null;
+            try {
+                Log.d("request!", "starting");
+                URL url = null;
+                HttpURLConnection connection = null;
+                try {
+                    //initialize connection
+                    url = new URL(LOGIN_URL);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("POST");
+                    String urlParameters = "method=" + "LoadPageInscription";
+                    byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+                    //write post data to URL
+                    DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+                    wr.write(postData);
+                    //connect and get data
+                    connection.connect();
+                    InputStream in = new BufferedInputStream(connection.getInputStream());
+                    json = new JSONObject(convertStreamToString(in));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        //parse returned data
+        protected void onPostExecute(JSONObject result) {
+            int success = 0;
+
+            try {
+
+
+                JSONArray jArrayDept = (result.getJSONArray("nom_departement"));
+                JSONArray jArrayid = (result.getJSONArray("id_departement"));
+                if (jArrayDept != null) {
+                    for (int i=0;i<jArrayDept.length();i++){
+                        listDept.add(new Departement(Integer.parseInt(jArrayid.get(i).toString()), jArrayDept.get(i).toString()));
+                        Log.d("DEBUG",  "ID : "+listDept.get(i).getId()+" NOM : "+listDept.get(i).getNom());
+                    }
+                }
+                //alert the user of the status of the connection
+                success = result.getInt(FLAG_SUCCESS);
+                Toast.makeText(Inscription.this, (String)result.getString("nom_departement"),
                         Toast.LENGTH_LONG).show();
                 //testText.setText(result.getString(FLAG_MESSAGE)+"");
             } catch (JSONException e) {
