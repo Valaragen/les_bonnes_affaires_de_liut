@@ -87,6 +87,13 @@
         android:inputType="number"
         android:layout_weight="0.02" />
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_dept"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.02" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,12 +121,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/mdp_user"
         android:layout_weight="0.02" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="131dp"
-        android:id="@+id/list_dept"
-        android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="wrap_content"

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Inscription extends Activity {
 
@@ -39,7 +42,11 @@ public class Inscription extends Activity {
     private EditText nom,prenom, password,mail,tel,dep,login;
     private TextView testText;
     private ListView list_departement;
-    String[]departement = new String[]{"Antoine","Benoit","Lucas","Youtub","Melissa","Doritos"};
+
+    private Spinner listDepartement;
+    private List<String> departements;
+
+
 
 
     @Override
@@ -56,8 +63,9 @@ public class Inscription extends Activity {
         password = (EditText)findViewById(R.id.mdp_user);
         login = (EditText)findViewById(R.id.login_user);
         testText = (TextView)findViewById(R.id.testText);
+        listDepartement = (Spinner)findViewById(R.id.list_dept);
 
-        list_departement = (ListView)findViewById(R.id.list_dept);
+        fillSpinner(listDepartement, departements);
 
     }
 
@@ -65,9 +73,6 @@ public class Inscription extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_inscription, menu);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Inscription.this,
-                android.R.layout.simple_list_item_1, departement);
-        list_departement.setAdapter(adapter);
         return true;
     }
     // method when click on formPage
@@ -173,4 +178,22 @@ public class Inscription extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void fillSpinner(Spinner spinner, List<String> list) {
+        list = getDepartements();
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        Log.d("Spinner", "Spinner adaptee");
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Log.d("Spinner", "Spinner set");
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
+        Log.d("Spinner", "Spinner fini");
+    }
+    public ArrayList<String> getDepartements() {
+        ArrayList<String> list = new ArrayList<String>();
+
+
+        return list;
+    }
 }
