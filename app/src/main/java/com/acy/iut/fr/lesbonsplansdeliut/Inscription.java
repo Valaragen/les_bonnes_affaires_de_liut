@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,8 @@ public class Inscription extends Activity {
     //Declare fields
     private EditText nom,prenom, password,mail,tel,dep,login;
     private TextView testText;
+    private ListView list_departement;
+    String[]departement = new String[]{"Antoine","Benoit","Lucas","Youtub","Melissa","Doritos"};
 
 
     @Override
@@ -53,12 +57,17 @@ public class Inscription extends Activity {
         login = (EditText)findViewById(R.id.login_user);
         testText = (TextView)findViewById(R.id.testText);
 
+        list_departement = (ListView)findViewById(R.id.list_dept);
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_inscription, menu);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Inscription.this,
+                android.R.layout.simple_list_item_1, departement);
+        list_departement.setAdapter(adapter);
         return true;
     }
     // method when click on formPage

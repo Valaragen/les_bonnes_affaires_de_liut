@@ -64,26 +64,25 @@
         android:layout_height="wrap_content"
         android:text="Non connecté"
         android:id="@+id/status"
-        android:layout_alignBottom="@+id/submit"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/submit" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
-        android:layout_below="@+id/submit"
-        android:layout_marginTop="64dp"
-        android:layout_alignEnd="@+id/password"
-        android:layout_toEndOf="@+id/textView2" />
+        android:layout_alignBottom="@+id/status"
+        android:layout_toEndOf="@+id/button" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Inscription"
         android:id="@+id/button"
-        android:layout_alignBottom="@+id/progressBar"
-        android:layout_alignEnd="@+id/status"
         android:clickable="true"
-        android:onClick="InscriptionClick" />
+        android:onClick="InscriptionClick"
+        android:layout_below="@+id/status"
+        android:layout_alignEnd="@+id/username"
+        android:layout_marginTop="43dp" />
 </RelativeLayout>

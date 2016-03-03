@@ -115,6 +115,12 @@
         android:id="@+id/mdp_user"
         android:layout_weight="0.02" />
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="131dp"
+        android:id="@+id/list_dept"
+        android:layout_gravity="center_horizontal" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -127,7 +133,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:id="@+id/testText"
         android:layout_gravity="center_horizontal" />
 
