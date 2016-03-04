@@ -45,7 +45,7 @@ public class Inscription extends Activity {
     private TextView testText;
     private ListView list_departement;
 
-    private Spinner listDepartement;
+    private Spinner spinnerlistDepartement;
     private List<String> departements;
 
 
@@ -66,8 +66,7 @@ public class Inscription extends Activity {
         password = (EditText)findViewById(R.id.mdp_user);
         login = (EditText)findViewById(R.id.login_user);
         testText = (TextView)findViewById(R.id.testText);
-        listDepartement = (Spinner)findViewById(R.id.list_dept);
-        fillSpinner(listDepartement, departements);
+        spinnerlistDepartement = (Spinner)findViewById(R.id.list_dept);
 
 
     }
@@ -169,7 +168,7 @@ public class Inscription extends Activity {
     class LoadPage extends AsyncTask<String, String, JSONObject> {
 
 
-        public  ArrayList<Departement>listDept = new ArrayList<Departement>();
+        public  ArrayList<String>listDept = new ArrayList<String>();
 
         //display loading and status
         protected void onPreExecute() {
@@ -219,10 +218,12 @@ public class Inscription extends Activity {
                 JSONArray jArrayid = (result.getJSONArray("id_departement"));
                 if (jArrayDept != null) {
                     for (int i=0;i<jArrayDept.length();i++){
-                        listDept.add(new Departement(Integer.parseInt(jArrayid.get(i).toString()), jArrayDept.get(i).toString()));
-                        Log.d("DEBUG",  "ID : "+listDept.get(i).getId()+" NOM : "+listDept.get(i).getNom());
+                        listDept.add(jArrayDept.get(i).toString());
+                        Log.d("DEBUG",listDept.get(i));
+
                     }
                 }
+                fillSpinner(spinnerlistDepartement,listDept);
                 //alert the user of the status of the connection
                 success = result.getInt(FLAG_SUCCESS);
                 Toast.makeText(Inscription.this, (String)result.getString("nom_departement"),
@@ -258,7 +259,6 @@ public class Inscription extends Activity {
     }
 
     public void fillSpinner(Spinner spinner, List<String> list) {
-        list = getDepartements();
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         Log.d("Spinner", "Spinner adaptee");
@@ -268,11 +268,5 @@ public class Inscription extends Activity {
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
         Log.d("Spinner", "Spinner fini");
-    }
-    public ArrayList<String> getDepartements() {
-        ArrayList<String> list = new ArrayList<String>();
-
-
-        return list;
     }
 }
