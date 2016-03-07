@@ -26,6 +26,10 @@
             android:name=".Pages.AddObject"
             android:label="@string/title_activity_add_object" >
         </activity>
+        <activity
+            android:name=".Pages.Resultat_recherche"
+            android:label="@string/title_activity_resultat_recherche" >
+        </activity>
     </application>
 
 </manifest>
