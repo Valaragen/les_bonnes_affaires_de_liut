@@ -44,8 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/prenom_user"
-        android:layout_weight="0.02"
-        android:imeOptions="actionNext"/>
+        android:imeOptions="actionNext"
+        android:layout_weight="0.02"/>
 
     <TextView
         android:layout_width="wrap_content"
