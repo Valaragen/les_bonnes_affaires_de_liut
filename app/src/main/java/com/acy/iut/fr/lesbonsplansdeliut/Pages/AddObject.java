@@ -1,4 +1,4 @@
-package com.acy.iut.fr.lesbonsplansdeliut;
+package com.acy.iut.fr.lesbonsplansdeliut.Pages;
 
 import android.app.Activity;
 import android.os.Bundle;

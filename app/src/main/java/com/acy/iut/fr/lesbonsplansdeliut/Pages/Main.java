@@ -1,4 +1,4 @@
-package com.acy.iut.fr.lesbonsplansdeliut;
+package com.acy.iut.fr.lesbonsplansdeliut.Pages;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.acy.iut.fr.lesbonsplansdeliut.Objets.Credential;
+import com.acy.iut.fr.lesbonsplansdeliut.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -129,7 +133,12 @@ public class Main extends Activity {
             try {
                 //alert the user of the status of the connection
                 success = result.getInt(FLAG_SUCCESS);
-                status.setText(result.getString("message"));
+                if(success == 0){
+                    status.setText(result.getString("message"));
+                }else{
+                    status.setText("");
+                    Toast.makeText(Main.this, result.getString("message"), Toast.LENGTH_SHORT).show();
+                }
                 progress.setVisibility(View.GONE);
             } catch (JSONException e) {
                 e.printStackTrace();

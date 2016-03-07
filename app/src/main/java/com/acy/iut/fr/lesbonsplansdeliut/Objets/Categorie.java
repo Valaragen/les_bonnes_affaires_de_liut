@@ -1,4 +1,4 @@
-package com.acy.iut.fr.lesbonsplansdeliut;
+package com.acy.iut.fr.lesbonsplansdeliut.Objets;
 
 /**
  * Created by boinnarr on 01/03/2016.

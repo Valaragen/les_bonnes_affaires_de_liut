@@ -1,4 +1,4 @@
-package com.acy.iut.fr.lesbonsplansdeliut;
+package com.acy.iut.fr.lesbonsplansdeliut.Objets;
 
 import java.util.ArrayList;
 import java.util.List;

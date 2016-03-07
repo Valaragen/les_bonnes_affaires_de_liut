@@ -1,8 +1,7 @@
-package com.acy.iut.fr.lesbonsplansdeliut;
+package com.acy.iut.fr.lesbonsplansdeliut.Pages;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.acy.iut.fr.lesbonsplansdeliut.Objets.Utilisateur;
 import com.acy.iut.fr.lesbonsplansdeliut.R;
 
 import org.json.JSONArray;
@@ -26,7 +26,6 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -224,8 +223,7 @@ public class Inscription extends Activity {
                 fillSpinner(spinnerlistDepartement,listDept);
                 //alert the user of the status of the connection
                 success = result.getInt(FLAG_SUCCESS);
-                Toast.makeText(Inscription.this, (String)result.getString("nom_departement"),
-                        Toast.LENGTH_LONG).show();
+                 Log.d("DEBUG",(String)result.getString("nom_departement"));
                 //testText.setText(result.getString(FLAG_MESSAGE)+"");
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
