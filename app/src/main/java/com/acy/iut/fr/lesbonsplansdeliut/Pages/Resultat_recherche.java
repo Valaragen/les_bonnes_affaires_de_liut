@@ -23,7 +23,7 @@ public class Resultat_recherche extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultat_recherche);
-        result_listView = (ListView) findViewById(R.id.result_listView);
+       // result_listView = (ListView) findViewById(R.id.result_listView);
         //TEST
         result_List.add(new Objet("Portable", "tres bon etat", 100));
         result_List.add(new Objet("Chien", "tres bon etat", 200));

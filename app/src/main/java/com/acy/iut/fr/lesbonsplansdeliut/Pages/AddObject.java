@@ -40,6 +40,7 @@ public class AddObject extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_object);
+        new LoadPage().execute();
 
         titreObjet = (EditText) findViewById(R.id.titreObjet);
         spinnerCategories = (Spinner) findViewById(R.id.spinnerCategories);
