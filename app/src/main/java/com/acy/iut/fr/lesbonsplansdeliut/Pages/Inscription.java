@@ -2,6 +2,7 @@ package com.acy.iut.fr.lesbonsplansdeliut.Pages;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -147,6 +148,8 @@ public class Inscription extends Activity {
                 success = result.getInt(FLAG_SUCCESS);
                 Toast.makeText(Inscription.this, (String)result.getString(FLAG_MESSAGE),
                         Toast.LENGTH_LONG).show();
+                Intent inecription_to_main = new Intent(Inscription.this, Main.class);
+                startActivity(inecription_to_main);
                 //testText.setText(result.getString(FLAG_MESSAGE)+"");
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());

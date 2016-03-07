@@ -138,6 +138,8 @@ public class Main extends Activity {
                 }else{
                     status.setText("");
                     Toast.makeText(Main.this, result.getString("message"), Toast.LENGTH_SHORT).show();
+                    Intent main_to_resultatObjet = new Intent(Main.this, Resultat_recherche.class);
+                    startActivity(main_to_resultatObjet);
                 }
                 progress.setVisibility(View.GONE);
             } catch (JSONException e) {
