@@ -129,7 +129,7 @@ public class Main extends Activity {
             try {
                 //alert the user of the status of the connection
                 success = result.getInt(FLAG_SUCCESS);
-                status.setText(result.getString("nom"));
+                status.setText(result.getString("message"));
                 progress.setVisibility(View.GONE);
             } catch (JSONException e) {
                 e.printStackTrace();

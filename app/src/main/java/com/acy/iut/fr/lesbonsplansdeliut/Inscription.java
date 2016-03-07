@@ -41,7 +41,7 @@ public class Inscription extends Activity {
     private static final String LOGIN_URL = "http://rudyboinnard.esy.es/android/";
 
     //Declare fields
-    private EditText nom,prenom, password,mail,tel,dep,login;
+    private EditText nom,prenom, password,mail,tel,login;
     private TextView testText;
     private ListView list_departement;
 
@@ -62,7 +62,6 @@ public class Inscription extends Activity {
         prenom = (EditText)findViewById(R.id.prenom_user);
         mail = (EditText)findViewById(R.id.mail_user);
         tel = (EditText)findViewById(R.id.tel_user);
-        dep = (EditText)findViewById(R.id.dep_user);
         password = (EditText)findViewById(R.id.mdp_user);
         login = (EditText)findViewById(R.id.login_user);
         testText = (TextView)findViewById(R.id.testText);
@@ -83,7 +82,7 @@ public class Inscription extends Activity {
             return;
         }
         Log.d("DEBUG", "Click on inscription");
-        if (dep.getText().toString().matches("") || nom.getText().toString().matches("") || prenom.getText().toString().matches("")|| mail.getText().toString().matches("") || tel.getText().toString().matches("")||  password.getText().toString().matches("") ||  login.getText().toString().matches("")) {
+        if (nom.getText().toString().matches("") || prenom.getText().toString().matches("")|| mail.getText().toString().matches("") || tel.getText().toString().matches("")||  password.getText().toString().matches("") ||  login.getText().toString().matches("")) {
             Toast.makeText(this, "Remplir tous les champs pour continuer", Toast.LENGTH_SHORT).show();
         }else {
             new AddUser().execute();
@@ -100,12 +99,11 @@ public class Inscription extends Activity {
     //async call to the php script
     class AddUser extends AsyncTask<Utilisateur, String, JSONObject> {
 
-        private Utilisateur u = new Utilisateur(Integer.parseInt(dep.getText().toString()),nom.getText().toString(),prenom.getText().toString(),mail.getText().toString(),tel.getText().toString(),password.getText().toString(),login.getText().toString());
+        private Utilisateur u = new Utilisateur((int)(spinnerlistDepartement.getSelectedItemId()+1),nom.getText().toString(),prenom.getText().toString(),mail.getText().toString(),tel.getText().toString(),password.getText().toString(),login.getText().toString());
 
         //display loading and status
         protected void onPreExecute() {
-            //testText.setText("Connecting...");
-            Log.d("------DEBUG---",""+Integer.parseInt(dep.getText().toString()));
+            //testText.setText("Connecting...")
         }
 
         //Get JSON data from the URL

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.0 rc2"
 
     defaultConfig {
-        applicationId "com.acy.iut.fr.httprequestdemo"
+        applicationId "com.acy.iut.fr.lesbonsplansdeliut"
         minSdkVersion 21
         targetSdkVersion 22
         versionCode 1
