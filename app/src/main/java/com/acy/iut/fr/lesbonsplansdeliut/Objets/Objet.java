@@ -9,14 +9,20 @@ import java.util.List;
 public class Objet {
     private int id;
     private String nom;
-    private int description;
+    private String description;
     private List<String> url_photo1 = new ArrayList<>();
     private int prix;
 
-    public Objet( String nom, int description, List<String> url_photo1, int prix) {
+    public Objet( String nom, String description, List<String> url_photo1, int prix) {
         this.nom = nom;
         this.description = description;
         this.url_photo1 = url_photo1;
+        this.prix = prix;
+    }
+
+    public Objet( String nom, String description, int prix) {
+        this.nom = nom;
+        this.description = description;
         this.prix = prix;
     }
 
@@ -36,11 +42,11 @@ public class Objet {
         this.nom = nom;
     }
 
-    public int getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(int description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

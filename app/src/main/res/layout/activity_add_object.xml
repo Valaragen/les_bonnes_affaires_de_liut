@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ajouter"
-                android:id="@+id/button2"
+                android:id="@+id/add_object_btn"
                 android:layout_below="@+id/imageView"
                 android:layout_alignEnd="@+id/spinnerCategories" />
 
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:text="Terminer"
                 android:id="@+id/button3"
-                android:layout_below="@+id/button2"
+                android:layout_below="@+id/add_object_btn"
                 android:layout_centerHorizontal="true" />
 
 
