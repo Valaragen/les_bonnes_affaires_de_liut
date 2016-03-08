@@ -30,9 +30,9 @@ public class RechercheAdapter extends ArrayAdapter<Objet> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_recherche,parent, false);
         }
 
-        TweetViewHolder viewHolder = (TweetViewHolder) convertView.getTag();
+        ObjetViewHolder viewHolder = (ObjetViewHolder) convertView.getTag();
         if(viewHolder == null){
-            viewHolder = new TweetViewHolder();
+            viewHolder = new ObjetViewHolder();
             viewHolder.titre = (TextView) convertView.findViewById(R.id.titre);
             viewHolder.desc = (TextView) convertView.findViewById(R.id.desc);
             viewHolder.photo = (ImageView) convertView.findViewById(R.id.photo);
@@ -50,7 +50,7 @@ public class RechercheAdapter extends ArrayAdapter<Objet> {
         return convertView;
     }
 
-    private class TweetViewHolder{
+    private class ObjetViewHolder{
         public TextView titre;
         public TextView desc;
         public ImageView photo;
