@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.acy.iut.fr.lesbonsplansdeliut.Objets.Credential;
+import com.acy.iut.fr.lesbonsplansdeliut.Objets.Utilisateur;
 import com.acy.iut.fr.lesbonsplansdeliut.R;
 
 import org.json.JSONException;
@@ -36,6 +37,7 @@ public class Main extends Activity {
     private static final String FLAG_SUCCESS = "success";
     private static final String FLAG_MESSAGE = "message";
     private static final String LOGIN_URL = "http://rudyboinnard.esy.es/android/";
+    public  Utilisateur UserLog;
 
     //graphic interface fields
     private EditText username, password;
@@ -136,6 +138,18 @@ public class Main extends Activity {
                 if(success == 0){
                     status.setText(result.getString("message"));
                 }else{
+                    Log.d("DEBUG",result.getString("id"));
+                    Log.d("DEBUG",result.getInt("id")+"");
+                    /*
+                    UserLog.setId(result.getInt("id"));
+                    UserLog.setId_departement(result.getInt("id_departement"));
+                    UserLog.setLogin(result.getString("login"));
+                    UserLog.setMotdepasse(result.getString("password"));
+                    UserLog.setMail(result.getString("mail"));
+                    UserLog.setNom(result.getString("nom"));
+                    UserLog.setPrenom(result.getString("prenom"));
+                    UserLog.setTel(result.getString("telephone"));
+                    Log.d("DEBUG USER LOGE",UserLog.toString());*/
                     status.setText("");
                     Toast.makeText(Main.this, result.getString("message"), Toast.LENGTH_SHORT).show();
                     Intent main_to_resultatObjet = new Intent(Main.this, Resultat_recherche.class);
