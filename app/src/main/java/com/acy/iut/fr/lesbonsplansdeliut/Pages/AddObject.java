@@ -63,6 +63,7 @@ public class AddObject extends Activity {
         titreObjet = (EditText) findViewById(R.id.titreObjet);
         descriptionObjet = (EditText) findViewById(R.id.descriptionObjet);
         prixObjet = (EditText) findViewById(R.id.prix);
+        Log.d("DEBUG",Main.UserLog.getLogin());
     }
 
     @Override

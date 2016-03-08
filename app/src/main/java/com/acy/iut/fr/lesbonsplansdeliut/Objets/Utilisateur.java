@@ -87,4 +87,5 @@ public class Utilisateur {
         this.motdepasse = motdepasse;
         this.login = login;
     }
+    public Utilisateur(){}
 }

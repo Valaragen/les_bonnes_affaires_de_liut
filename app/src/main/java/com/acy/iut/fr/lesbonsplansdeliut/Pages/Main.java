@@ -37,7 +37,7 @@ public class Main extends Activity {
     private static final String FLAG_SUCCESS = "success";
     private static final String FLAG_MESSAGE = "message";
     private static final String LOGIN_URL = "http://rudyboinnard.esy.es/android/";
-    public  Utilisateur UserLog;
+    static Utilisateur UserLog = new Utilisateur();
 
     //graphic interface fields
     private EditText username, password;
@@ -140,7 +140,7 @@ public class Main extends Activity {
                 }else{
                     Log.d("DEBUG",result.getString("id"));
                     Log.d("DEBUG",result.getInt("id")+"");
-                    /*
+
                     UserLog.setId(result.getInt("id"));
                     UserLog.setId_departement(result.getInt("id_departement"));
                     UserLog.setLogin(result.getString("login"));
@@ -149,7 +149,7 @@ public class Main extends Activity {
                     UserLog.setNom(result.getString("nom"));
                     UserLog.setPrenom(result.getString("prenom"));
                     UserLog.setTel(result.getString("telephone"));
-                    Log.d("DEBUG USER LOGE",UserLog.toString());*/
+                    Log.d("DEBUG USER LOGE",UserLog.toString());
                     status.setText("");
                     Toast.makeText(Main.this, result.getString("message"), Toast.LENGTH_SHORT).show();
                     Intent main_to_resultatObjet = new Intent(Main.this, Resultat_recherche.class);
