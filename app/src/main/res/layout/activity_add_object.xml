@@ -108,7 +108,8 @@
                 android:text="Ajouter"
                 android:id="@+id/add_object_btn"
                 android:layout_below="@+id/imageView"
-                android:layout_alignEnd="@+id/spinnerCategories" />
+                android:layout_alignEnd="@+id/spinnerCategories"
+                android:onClick="ClickAddPhotoBtn" />
 
             <Button
                 android:layout_width="wrap_content"

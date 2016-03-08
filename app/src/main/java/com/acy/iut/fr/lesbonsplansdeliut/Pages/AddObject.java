@@ -2,12 +2,17 @@ package com.acy.iut.fr.lesbonsplansdeliut.Pages;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -35,6 +40,7 @@ public class AddObject extends Activity {
     private ArrayList<String> listCategories = new ArrayList<String>();
     private Spinner spinnerCategories;
     private EditText titreObjet;
+    private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +72,32 @@ public class AddObject extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void ClickAddPhotoBtn(View v){
+        Intent i = new Intent(
+                Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(i, RESULT_LOAD_IMAGE);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            // String picturePath contains the path of selected Image
+        }
     }
 
 
@@ -127,8 +159,6 @@ public class AddObject extends Activity {
                 fillSpinner(spinnerCategories,listCategories);
                 //alert the user of the status of the connection
                 success = result.getInt(FLAG_SUCCESS);
-                Toast.makeText(AddObject.this, (String) result.getString("nom_departement"),
-                        Toast.LENGTH_LONG).show();
                 //testText.setText(result.getString(FLAG_MESSAGE)+"");
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
