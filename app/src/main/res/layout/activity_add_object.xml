@@ -28,7 +28,10 @@
                 android:id="@+id/titreObjet"
                 android:layout_below="@+id/TextView"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,7 +48,10 @@
                 android:id="@+id/descriptionObjet"
                 android:layout_below="@+id/Textviex2"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,68 +62,98 @@
                 android:layout_below="@+id/descriptionObjet"
                 android:layout_alignParentStart="true" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/prix"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="98dp"
-                android:layout_centerVertical="true" />
-
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/spinnerCategories"
                 android:layout_below="@+id/textView10"
                 android:layout_alignParentStart="true"
-                android:layout_margin="5dp" />
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Prix"
                 android:id="@+id/textView"
-                android:layout_alignBottom="@+id/spinnerCategories"
-                android:layout_alignParentStart="true" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_below="@+id/spinnerCategories"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/Textviex2" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText"
+                android:id="@+id/prix"
                 android:layout_below="@+id/textView"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                android:layout_marginBottom="10dp" />
 
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="150dp"
-                android:id="@+id/imageView"
-                android:layout_below="@+id/editText"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nom image"
-                android:id="@+id/textView11"
-                android:layout_below="@+id/imageView"
-                android:layout_alignParentStart="true" />
+                android:id="@+id/photo1"
+                android:layout_below="@+id/prix"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/button3"
+                android:layout_alignEnd="@+id/textView" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ajouter"
-                android:id="@+id/add_object_btn"
-                android:layout_below="@+id/imageView"
-                android:layout_alignEnd="@+id/spinnerCategories"
-                android:onClick="ClickAddPhotoBtn" />
+                android:text="+"
+                android:id="@+id/btnAddPhoto"
+                android:onClick="ClickAddPhotoBtn"
+                android:layout_below="@+id/photo1"
+                android:layout_alignStart="@+id/spinnerCategories"
+                android:layout_alignEnd="@+id/photo1" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Terminer"
                 android:id="@+id/button3"
-                android:layout_below="@+id/add_object_btn"
+                android:layout_below="@+id/btnAddPhoto"
                 android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:id="@+id/photo3"
+                android:layout_below="@+id/prix"
+                android:layout_alignEnd="@+id/prix"
+                android:layout_toEndOf="@+id/button3"
+                android:layout_alignStart="@+id/btnAddPhoto3" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:id="@+id/btnAddPhoto3"
+                android:layout_below="@+id/photo3"
+                android:layout_alignEnd="@+id/spinnerCategories"
+                android:onClick="ClickAddPhotoBtn" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:id="@+id/photo2"
+                android:layout_alignTop="@+id/photo1"
+                android:layout_alignStart="@+id/button3"
+                android:layout_alignEnd="@+id/button3" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:id="@+id/btnAddPhoto2"
+                android:layout_below="@+id/photo2"
+                android:layout_alignStart="@+id/photo2"
+                android:onClick="ClickAddPhotoBtn" />
 
 
         </RelativeLayout>

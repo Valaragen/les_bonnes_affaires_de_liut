@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -15,8 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.acy.iut.fr.lesbonsplansdeliut.R;
 
@@ -41,6 +42,7 @@ public class AddObject extends Activity {
     private Spinner spinnerCategories;
     private EditText titreObjet;
     private static int RESULT_LOAD_IMAGE = 1;
+    private ImageView photo1,photo2,photo3,imageX;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,9 @@ public class AddObject extends Activity {
 
         titreObjet = (EditText) findViewById(R.id.titreObjet);
         spinnerCategories = (Spinner) findViewById(R.id.spinnerCategories);
+        photo1 = (ImageView) findViewById(R.id.photo1);
+        photo2 = (ImageView) findViewById(R.id.photo2);
+        photo3 = (ImageView) findViewById(R.id.photo3);
     }
 
     @Override
@@ -75,6 +80,13 @@ public class AddObject extends Activity {
     }
 
     public void ClickAddPhotoBtn(View v){
+        if(v.getId() == R.id.btnAddPhoto){
+            imageX = (ImageView)findViewById(R.id.photo1);
+        }else if (v.getId() == R.id.btnAddPhoto2){
+            imageX = (ImageView)findViewById(R.id.photo2);
+        }else if (v.getId() == R.id.btnAddPhoto3){
+            imageX = (ImageView)findViewById(R.id.photo3);
+        }
         Intent i = new Intent(
                 Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
@@ -95,6 +107,8 @@ public class AddObject extends Activity {
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
+            imageX.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
 
             // String picturePath contains the path of selected Image
         }
