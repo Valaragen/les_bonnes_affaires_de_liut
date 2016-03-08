@@ -11,16 +11,16 @@ public class Objet {
     private String nom;
     private String description;
     private List<String> url_photo1 = new ArrayList<>();
-    private int prix;
+    private double prix;
 
-    public Objet( String nom, String description, List<String> url_photo1, int prix) {
+    public Objet( String nom, String description, List<String> url_photo1, double prix) {
         this.nom = nom;
         this.description = description;
         this.url_photo1 = url_photo1;
         this.prix = prix;
     }
 
-    public Objet( String nom, String description, int prix) {
+    public Objet( String nom, String description, double prix) {
         this.nom = nom;
         this.description = description;
         this.prix = prix;
@@ -58,7 +58,7 @@ public class Objet {
         this.url_photo1 = url_photo1;
     }
 
-    public int getPrix() {
+    public double getPrix() {
         return prix;
     }
 

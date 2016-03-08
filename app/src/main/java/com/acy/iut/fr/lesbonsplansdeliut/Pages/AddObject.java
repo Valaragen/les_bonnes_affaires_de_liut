@@ -18,7 +18,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.acy.iut.fr.lesbonsplansdeliut.Objets.Objet;
+import com.acy.iut.fr.lesbonsplansdeliut.Objets.Utilisateur;
 import com.acy.iut.fr.lesbonsplansdeliut.R;
 
 import org.json.JSONArray;
@@ -40,9 +43,11 @@ public class AddObject extends Activity {
     private static final String URL = "http://rudyboinnard.esy.es/android/";
     private ArrayList<String> listCategories = new ArrayList<String>();
     private Spinner spinnerCategories;
-    private EditText titreObjet;
+    private EditText titreObjet, descriptionObjet, prixObjet;
+    private List<String> listImageObjet = new ArrayList<String>();
     private static int RESULT_LOAD_IMAGE = 1;
     private ImageView photo1,photo2,photo3,imageX;
+    private static final String LOGIN_URL = "http://rudyboinnard.esy.es/android/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,9 @@ public class AddObject extends Activity {
         photo1 = (ImageView) findViewById(R.id.photo1);
         photo2 = (ImageView) findViewById(R.id.photo2);
         photo3 = (ImageView) findViewById(R.id.photo3);
+        titreObjet = (EditText) findViewById(R.id.titreObjet);
+        descriptionObjet = (EditText) findViewById(R.id.descriptionObjet);
+        prixObjet = (EditText) findViewById(R.id.prix);
     }
 
     @Override
@@ -202,5 +210,67 @@ public class AddObject extends Activity {
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
         Log.d("Spinner", "Spinner fini");
+    }
+
+
+    class AddObjet extends AsyncTask<Utilisateur, String, JSONObject> {
+        private Objet ob = new Objet(titreObjet.getText().toString(), descriptionObjet.getText().toString(), Double.parseDouble(prixObjet.getText().toString()));
+        //display loading and status
+        protected void onPreExecute() {
+            Log.d("AddObjet", "Connexion add object start");
+        }
+
+        //Get JSON data from the URL
+        @TargetApi(Build.VERSION_CODES.KITKAT)
+        @Override
+        protected JSONObject doInBackground(Utilisateur... args) {
+            JSONObject json = null;
+            try {
+                Log.d("request!", "starting");
+                URL url = null;
+                HttpURLConnection connection = null;
+                try {
+                    //initialize connection
+                    url = new URL(LOGIN_URL);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("POST");
+                    String urlParameters = "nomObjet=" + ob.getNom() + "&&descriptionObjet=" + ob.getDescription() + "&&prixObjet=" + ob.getPrix()+ "&&method=" + "AddObjet";
+                    byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+                    //write post data to URL
+                    DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+                    wr.write(postData);
+                    //connect and get data
+                    connection.connect();
+                    InputStream in = new BufferedInputStream(connection.getInputStream());
+                    json = new JSONObject(convertStreamToString(in));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        //parse returned data
+        protected void onPostExecute(JSONObject result) {
+            int success = 0;
+
+            try {
+                //alert the user of the status of the connection
+                success = result.getInt(FLAG_SUCCESS);
+                //testText.setText(result.getString(FLAG_MESSAGE)+"");
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+                //e.printStackTrace();
+            }
+            //log the success status
+            if (success == 1) {
+                Log.d("OK", "OK");
+            } else {
+                Log.d("Error", "Error");
+            }
+        }
     }
 }
