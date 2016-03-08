@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.acy.iut.fr.lesbonsplansdeliut.Objets.Objet;
+import com.acy.iut.fr.lesbonsplansdeliut.Outils.RechercheAdapter;
 import com.acy.iut.fr.lesbonsplansdeliut.R;
 
 import java.util.ArrayList;
@@ -23,15 +24,14 @@ public class Resultat_recherche extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultat_recherche);
-       // result_listView = (ListView) findViewById(R.id.result_listView);
+        result_listView = (ListView) findViewById(R.id.result_listView);
         //TEST
         result_List.add(new Objet("Portable", "tres bon etat", 100));
         result_List.add(new Objet("Chien", "tres bon etat", 200));
         result_List.add(new Objet("Chat", "un peu usé", 120));
 
-        for(Objet o : result_List){
-
-        }
+        RechercheAdapter adapter = new RechercheAdapter(Resultat_recherche.this, result_List);
+        result_listView.setAdapter(adapter);
     }
 
     public void AddObjectClick(View v){
