@@ -2,14 +2,18 @@ package com.acy.iut.fr.lesbonsplansdeliut.Pages;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,13 +33,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+
 
 public class AddObject extends Activity {
     private static final String FLAG_SUCCESS = "success";
@@ -63,7 +71,7 @@ public class AddObject extends Activity {
         titreObjet = (EditText) findViewById(R.id.titreObjet);
         descriptionObjet = (EditText) findViewById(R.id.descriptionObjet);
         prixObjet = (EditText) findViewById(R.id.prix);
-        Log.d("DEBUG",Main.UserLog.getLogin());
+        Log.d("DEBUG", Main.UserLog.getLogin());
     }
 
     @Override
@@ -100,6 +108,10 @@ public class AddObject extends Activity {
                 Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         startActivityForResult(i, RESULT_LOAD_IMAGE);
+    }
+
+    public void ClickAddObject(View v){
+        new AddObjet().execute();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -213,14 +225,28 @@ public class AddObject extends Activity {
         Log.d("Spinner", "Spinner fini");
     }
 
+    // ---------------------------------- UPLOAD IMAGE -------------------------------------------------------
+
+    // Convert image to String
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+
 
     class AddObjet extends AsyncTask<Utilisateur, String, JSONObject> {
-        private Objet ob = new Objet(titreObjet.getText().toString(), descriptionObjet.getText().toString(), Double.parseDouble(prixObjet.getText().toString()));
+        private Objet ob = new Objet(Main.UserLog.getId(),(int)(spinnerCategories.getSelectedItemId()+1),titreObjet.getText().toString(), descriptionObjet.getText().toString(), Double.parseDouble(prixObjet.getText().toString()));
         //display loading and status
         protected void onPreExecute() {
             Log.d("AddObjet", "Connexion add object start");
-        }
+            Log.d("AddPHOTO",photo1.getContentDescription()+"");
+            if(photo1.getContentDescription() == ""){}
 
+        }
         //Get JSON data from the URL
         @TargetApi(Build.VERSION_CODES.KITKAT)
         @Override
@@ -235,7 +261,8 @@ public class AddObject extends Activity {
                     url = new URL(LOGIN_URL);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
-                    String urlParameters = "nomObjet=" + ob.getNom() + "&&descriptionObjet=" + ob.getDescription() + "&&prixObjet=" + ob.getPrix()+ "&&method=" + "AddObjet";
+                    ob.setUrl_photo1(listImageObjet);
+                    String urlParameters = "nomObjet=" + ob.getNom() + "&&id_user="+ob.getId_utilisateur()+"&&descriptionObjet=" + ob.getDescription() + "&&prixObjet=" + ob.getPrix() + "&&idCategorieObjet=" + ob.getId_categorie() + "&&method=" + "AddObjet";
                     byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
                     //write post data to URL
                     DataOutputStream wr = new DataOutputStream(connection.getOutputStream());

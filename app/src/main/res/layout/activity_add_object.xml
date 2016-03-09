@@ -118,7 +118,8 @@
                 android:text="Terminer"
                 android:id="@+id/button3"
                 android:layout_below="@+id/btnAddPhoto"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:onClick="ClickAddObject" />
 
             <ImageView
                 android:layout_width="fill_parent"

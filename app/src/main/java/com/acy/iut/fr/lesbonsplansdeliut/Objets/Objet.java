@@ -8,19 +8,22 @@ import java.util.List;
  */
 public class Objet {
     private int id;
+    private int id_utilisateur;
+    private int id_categorie;
     private String nom;
     private String description;
     private List<String> url_photo1 = new ArrayList<>();
     private double prix;
 
-    public Objet( String nom, String description, List<String> url_photo1, double prix) {
+    public Objet(int id_utilisateur, int id_categorie, String nom, String description, double prix) {
+        this.id_utilisateur = id_utilisateur;
+        this.id_categorie = id_categorie;
         this.nom = nom;
         this.description = description;
-        this.url_photo1 = url_photo1;
         this.prix = prix;
     }
 
-    public Objet( String nom, String description, double prix) {
+    public Objet(String nom, String description, double prix) {
         this.nom = nom;
         this.description = description;
         this.prix = prix;
@@ -34,20 +37,12 @@ public class Objet {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public double getPrix() {
+        return prix;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPrix(double prix) {
+        this.prix = prix;
     }
 
     public List<String> getUrl_photo1() {
@@ -58,11 +53,35 @@ public class Objet {
         this.url_photo1 = url_photo1;
     }
 
-    public double getPrix() {
-        return prix;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPrix(int prix) {
-        this.prix = prix;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public int getId_categorie() {
+        return id_categorie;
+    }
+
+    public void setId_categorie(int id_categorie) {
+        this.id_categorie = id_categorie;
+    }
+
+    public int getId_utilisateur() {
+        return id_utilisateur;
+    }
+
+    public void setId_utilisateur(int id_utilisateur) {
+        this.id_utilisateur = id_utilisateur;
     }
 }
