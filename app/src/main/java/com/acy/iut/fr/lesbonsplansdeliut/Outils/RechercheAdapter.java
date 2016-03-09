@@ -23,6 +23,8 @@ public class RechercheAdapter extends ArrayAdapter<Objet> {
         super(context, 0, objets);
     }
 
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -40,7 +42,7 @@ public class RechercheAdapter extends ArrayAdapter<Objet> {
             convertView.setTag(viewHolder);
         }
 
-        //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
+        //getItem(position) va récupérer l'item [position] de la List<Objet> objets
         Objet objet = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue

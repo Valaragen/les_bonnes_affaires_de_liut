@@ -1,22 +1,42 @@
 package com.acy.iut.fr.lesbonsplansdeliut.Pages;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.acy.iut.fr.lesbonsplansdeliut.Objets.Credential;
 import com.acy.iut.fr.lesbonsplansdeliut.Objets.Objet;
 import com.acy.iut.fr.lesbonsplansdeliut.Outils.RechercheAdapter;
 import com.acy.iut.fr.lesbonsplansdeliut.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Resultat_recherche extends Activity {
 
+    //static fields for ease of access
+    private static final String FLAG_SUCCESS = "success";
+    private static final String FLAG_MESSAGE = "message";
+    private static final String LOGIN_URL = "http://rudyboinnard.esy.es/android/";
     ListView result_listView;
     List<Objet> result_List = new ArrayList<Objet>();
 
@@ -25,13 +45,16 @@ public class Resultat_recherche extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultat_recherche);
         result_listView = (ListView) findViewById(R.id.result_listView);
-        //TEST
-        result_List.add(new Objet("Portable", "tres bon etat", 100));
-        result_List.add(new Objet("Chien", "tres bon etat", 200));
-        result_List.add(new Objet("Chat", "un peu usé", 120));
 
-        RechercheAdapter adapter = new RechercheAdapter(Resultat_recherche.this, result_List);
-        result_listView.setAdapter(adapter);
+        new Research().execute();
+
+        //TEST
+        //result_List.add(new Objet("Portable", "tres bon etat", 100));
+        //result_List.add(new Objet("Chien", "tres bon etat", 200));
+        //result_List.add(new Objet("Chat", "un peu usé", 120));
+
+        //RechercheAdapter adapter = new RechercheAdapter(Resultat_recherche.this, result_List);
+        //result_listView.setAdapter(adapter);
     }
 
     public void AddObjectClick(View v){
@@ -44,6 +67,82 @@ public class Resultat_recherche extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_resultat_recherche, menu);
         return true;
+    }
+
+    //convert an inputstream to a string
+    public String convertStreamToString(java.io.InputStream is) {
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
+    }
+
+    //async call to the php script
+    class Research extends AsyncTask<Credential, String, JSONObject> {
+
+        //display loading and status
+        protected void onPreExecute() {
+
+        }
+
+        //Get JSON data from the URL
+        @TargetApi(Build.VERSION_CODES.KITKAT)
+        @Override
+        protected JSONObject doInBackground(Credential... args) {
+            JSONObject json = null;
+            try {
+                Log.d("request!", "starting");
+                URL url = null;
+                HttpURLConnection connection = null;
+                try {
+                    //initialize connection
+                    url = new URL(LOGIN_URL);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("POST");
+                    String urlParameters = "method=Research";
+                    byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+                    //write post data to URL
+                    DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+                    wr.write(postData);
+                    //connect and get data
+                    connection.connect();
+                    InputStream in = new BufferedInputStream(connection.getInputStream());
+                    json = new JSONObject(convertStreamToString(in));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        //parse returned data
+        protected void onPostExecute(JSONObject result) {
+            int success = 0;
+            try {
+                //alert the user of the status of the connection
+                success = result.getInt(FLAG_SUCCESS);
+                if(success == 0){
+                    System.out.println("Marchepas");
+                }else{
+                    System.out.println("Marche");
+                    System.out.println(result.getString("nom_objet"));
+                    System.out.println("Marche");
+                    System.out.println("Marche");
+                    result_List.add(new Objet(result.getString("nom_objet"), result.getString("description_objet"), result.getDouble("prix")));
+                    RechercheAdapter adapter = new RechercheAdapter(Resultat_recherche.this, result_List);
+                    result_listView.setAdapter(adapter);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //log the success status
+            if (success == 1) {
+                Log.d("OK", "OK");
+            } else {
+                Log.d("Error", "Error");
+            }
+        }
     }
 
     @Override
