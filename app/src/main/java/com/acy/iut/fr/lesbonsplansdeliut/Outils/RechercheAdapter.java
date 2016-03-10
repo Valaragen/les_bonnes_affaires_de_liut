@@ -49,7 +49,6 @@ public class RechercheAdapter extends ArrayAdapter<Objet> {
         //il ne reste plus qu'a remplir notre vue
         viewHolder.titre.setText(objet.getNom());
         viewHolder.desc.setText(objet.getDescription());
-        viewHolder.prix.setText(objet.getPrix());
 
 
 
