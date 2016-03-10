@@ -51,6 +51,7 @@ public class RechercheAdapter extends ArrayAdapter<Objet> {
         viewHolder.desc.setText(objet.getDescription());
 
  // RUDY JE VEUX METTRE CES NOMBRES SANS LA VIRGULE !!
+        // http://java.developpez.com/faq/java/?page=langage_chaine#LANGAGE_STRING_nombre_en_chaine_formatee
         DecimalFormat df = new DecimalFormat("0");
         Double prix = new Double(df.format(objet.getPrix()));
         String prix_string = prix.toString();
