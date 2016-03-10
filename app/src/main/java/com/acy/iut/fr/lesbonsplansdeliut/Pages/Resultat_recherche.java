@@ -19,6 +19,7 @@ import com.acy.iut.fr.lesbonsplansdeliut.Objets.Objet;
 import com.acy.iut.fr.lesbonsplansdeliut.Outils.RechercheAdapter;
 import com.acy.iut.fr.lesbonsplansdeliut.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -125,11 +126,23 @@ public class Resultat_recherche extends Activity {
                 if(success == 0){
                     System.out.println("Marchepas");
                 }else{
+
+                    JSONArray jArrayID = (result.getJSONArray("id_objet"));
+                    JSONArray jArrayID_CAT = (result.getJSONArray("id_categorie"));
+                    JSONArray jArrayID_USER = (result.getJSONArray("id_utilisateur"));
+                    JSONArray jArrayNOM_OBJET = (result.getJSONArray("nom_objet"));
+                    JSONArray jArrayDESC_OBJET = (result.getJSONArray("description_objet"));
+                    JSONArray jArrayprix_OBJET = (result.getJSONArray("prix_objet"));
+                    if (jArrayID != null) {
+                        for (int i=0;i<jArrayID.length();i++){
+                            result_List.add(new Objet(Integer.parseInt(jArrayID.get(i).toString()),Double.parseDouble((jArrayprix_OBJET.get(i).toString())),jArrayDESC_OBJET.get(i).toString(),jArrayNOM_OBJET.get(i).toString(),Integer.parseInt(jArrayID_CAT.get(i).toString()),Integer.parseInt(jArrayID_USER.get(i).toString())));
+                        }
+                    }
+
                     System.out.println("Marche");
                     System.out.println(result.getString("nom_objet"));
-                    System.out.println("Marche");
-                    System.out.println("Marche");
-                    result_List.add(new Objet(result.getString("nom_objet"), result.getString("description_objet"), result.getDouble("prix")));
+                    Log.d("DEBUG OBJET AFFICHE", result.toString());
+                   // result_List.add(new Objet(result.getString("nom_objet"), result.getString("description_objet"), result.getDouble("prix")));
                     RechercheAdapter adapter = new RechercheAdapter(Resultat_recherche.this, result_List);
                     result_listView.setAdapter(adapter);
                 }

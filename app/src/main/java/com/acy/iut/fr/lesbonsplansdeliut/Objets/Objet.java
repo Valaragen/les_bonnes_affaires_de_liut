@@ -15,6 +15,16 @@ public class Objet {
     private List<String> url_photo1 = new ArrayList<>();
     private double prix;
 
+
+    public Objet(int id, double prix, String description, String nom, int id_categorie, int id_utilisateur) {
+        this.id = id;
+        this.prix = prix;
+        this.description = description;
+        this.nom = nom;
+        this.id_categorie = id_categorie;
+        this.id_utilisateur = id_utilisateur;
+    }
+
     public Objet(int id_utilisateur, int id_categorie, String nom, String description, double prix) {
         this.id_utilisateur = id_utilisateur;
         this.id_categorie = id_categorie;

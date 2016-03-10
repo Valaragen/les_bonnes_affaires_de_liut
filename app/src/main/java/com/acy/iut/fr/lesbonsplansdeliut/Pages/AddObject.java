@@ -95,6 +95,10 @@ public class AddObject extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void ClickAddObject(View v){
+        Log.d("DEBUG OBJECT","Clicki on  Add OBject");
+        new AddObjet().execute();
+    }
 
     public void ClickAddPhotoBtn(View v){
         if(v.getId() == R.id.btnAddPhoto){
@@ -108,10 +112,6 @@ public class AddObject extends Activity {
                 Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         startActivityForResult(i, RESULT_LOAD_IMAGE);
-    }
-
-    public void ClickAddObject(View v){
-        new AddObjet().execute();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -243,8 +243,8 @@ public class AddObject extends Activity {
         //display loading and status
         protected void onPreExecute() {
             Log.d("AddObjet", "Connexion add object start");
-            Log.d("AddPHOTO",photo1.getContentDescription()+"");
-            if(photo1.getContentDescription() == ""){}
+          //  Log.d("AddPHOTO",photo1.getContentDescription()+"");
+            //if(photo1.getContentDescription() == ""){}
 
         }
         //Get JSON data from the URL
@@ -288,6 +288,7 @@ public class AddObject extends Activity {
             try {
                 //alert the user of the status of the connection
                 success = result.getInt(FLAG_SUCCESS);
+                Toast.makeText(AddObject.this,result.getString("message"),Toast.LENGTH_SHORT).show();
                 //testText.setText(result.getString(FLAG_MESSAGE)+"");
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());

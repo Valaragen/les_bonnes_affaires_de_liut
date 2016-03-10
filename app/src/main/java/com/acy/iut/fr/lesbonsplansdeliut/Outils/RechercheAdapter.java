@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.acy.iut.fr.lesbonsplansdeliut.Objets.Objet;
 import com.acy.iut.fr.lesbonsplansdeliut.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -48,6 +49,17 @@ public class RechercheAdapter extends ArrayAdapter<Objet> {
         //il ne reste plus qu'à remplir notre vue
         viewHolder.titre.setText(objet.getNom());
         viewHolder.desc.setText(objet.getDescription());
+
+ // RUDY JE VEUX METTRE CES NOMBRES SANS LA VIRGULE !!
+        DecimalFormat df = new DecimalFormat("0");
+        Double prix = new Double(df.format(objet.getPrix()));
+        String prix_string = prix.toString();
+        viewHolder.prix.setText(prix_string);
+
+
+
+
+
 
         return convertView;
     }
