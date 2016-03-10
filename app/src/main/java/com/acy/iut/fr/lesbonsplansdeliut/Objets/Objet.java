@@ -13,10 +13,10 @@ public class Objet {
     private String nom;
     private String description;
     private List<String> url_photo1 = new ArrayList<>();
-    private double prix;
+    private int prix;
 
 
-    public Objet(int id, double prix, String description, String nom, int id_categorie, int id_utilisateur) {
+    public Objet(int id, int prix, String description, String nom, int id_categorie, int id_utilisateur) {
         this.id = id;
         this.prix = prix;
         this.description = description;
@@ -25,7 +25,7 @@ public class Objet {
         this.id_utilisateur = id_utilisateur;
     }
 
-    public Objet(int id_utilisateur, int id_categorie, String nom, String description, double prix) {
+    public Objet(int id_utilisateur, int id_categorie, String nom, String description, int prix) {
         this.id_utilisateur = id_utilisateur;
         this.id_categorie = id_categorie;
         this.nom = nom;
@@ -33,7 +33,7 @@ public class Objet {
         this.prix = prix;
     }
 
-    public Objet(String nom, String description, double prix) {
+    public Objet(String nom, String description, int prix) {
         this.nom = nom;
         this.description = description;
         this.prix = prix;
@@ -47,11 +47,11 @@ public class Objet {
         this.id = id;
     }
 
-    public double getPrix() {
+    public int getPrix() {
         return prix;
     }
 
-    public void setPrix(double prix) {
+    public void setPrix(int prix) {
         this.prix = prix;
     }
 

@@ -52,7 +52,7 @@ public class Resultat_recherche extends Activity {
         //TEST
         //result_List.add(new Objet("Portable", "tres bon etat", 100));
         //result_List.add(new Objet("Chien", "tres bon etat", 200));
-        //result_List.add(new Objet("Chat", "un peu usé", 120));
+        //result_List.add(new Objet("Chat", "un peu usï¿½", 120));
 
         //RechercheAdapter adapter = new RechercheAdapter(Resultat_recherche.this, result_List);
         //result_listView.setAdapter(adapter);
@@ -135,7 +135,7 @@ public class Resultat_recherche extends Activity {
                     JSONArray jArrayprix_OBJET = (result.getJSONArray("prix_objet"));
                     if (jArrayID != null) {
                         for (int i=0;i<jArrayID.length();i++){
-                            result_List.add(new Objet(Integer.parseInt(jArrayID.get(i).toString()),Double.parseDouble((jArrayprix_OBJET.get(i).toString())),jArrayDESC_OBJET.get(i).toString(),jArrayNOM_OBJET.get(i).toString(),Integer.parseInt(jArrayID_CAT.get(i).toString()),Integer.parseInt(jArrayID_USER.get(i).toString())));
+                            result_List.add(new Objet(Integer.parseInt(jArrayID.get(i).toString()),Integer.parseInt((jArrayprix_OBJET.get(i).toString())),jArrayDESC_OBJET.get(i).toString(),jArrayNOM_OBJET.get(i).toString(),Integer.parseInt(jArrayID_CAT.get(i).toString()),Integer.parseInt(jArrayID_USER.get(i).toString())));
                         }
                     }
 
